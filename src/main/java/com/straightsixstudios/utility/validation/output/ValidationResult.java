@@ -1,11 +1,11 @@
-package com.straightsixstudios.utlility.validation.output;
+package com.straightsixstudios.utility.validation.output;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author charles
@@ -20,6 +20,6 @@ import java.util.List;
 public class ValidationResult {
 
     private boolean valid;
-    private List<String> errors;
+    private Map<String, String> errors;
 
 }

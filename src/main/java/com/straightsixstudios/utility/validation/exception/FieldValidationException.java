@@ -1,4 +1,4 @@
-package com.straightsixstudios.utlility.validation.exception;
+package com.straightsixstudios.utility.validation.exception;
 /**
  * @author charles
  */

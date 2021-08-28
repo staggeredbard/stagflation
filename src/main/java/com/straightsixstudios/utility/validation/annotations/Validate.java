@@ -1,4 +1,4 @@
-package com.straightsixstudios.utlility.validation.annotations;
+package com.straightsixstudios.utility.validation.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
  * @author charles
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface ValidateString {
+@Target(ElementType.TYPE)
+public @interface Validate {
 }

@@ -18,20 +18,20 @@ import java.util.UUID;
  * @author charles
  */
 @ExtendWith(MockitoExtension.class)
-public class TestValidator {
+class TestValidator {
 
     @InjectMocks
     private FieldValidator fieldValidator;
 
     @Test
-    public void testFieldValidationException(){
+    void testFieldValidationException(){
         Assertions.assertThrows(FieldValidationException.class, () -> {
            fieldValidator.validate(new Object());
         });
     }
 
     @Test
-    public void testNullableField() throws FieldValidationException {
+    void testNullableField() throws FieldValidationException {
         ValidationResult result = fieldValidator.validate(new TestNullable());
 
         Assertions.assertNotNull(result);
@@ -39,7 +39,7 @@ public class TestValidator {
     }
 
     @Test
-    public void testValuesNull() throws FieldValidationException {
+    void testValuesNull() throws FieldValidationException {
         ValidationResult result = fieldValidator.validate(TestValues.builder().build());
 
         Assertions.assertNotNull(result);
@@ -50,7 +50,7 @@ public class TestValidator {
     }
 
     @Test
-    public void testValuesWrongCase() throws FieldValidationException {
+    void testValuesWrongCase() throws FieldValidationException {
         ValidationResult result = fieldValidator.validate(TestValues.builder().inputValue("one").build());
 
         Assertions.assertNotNull(result);
@@ -61,7 +61,7 @@ public class TestValidator {
     }
 
     @Test
-    public void testValuesMatching() throws FieldValidationException {
+    void testValuesMatching() throws FieldValidationException {
         ValidationResult result = fieldValidator.validate(TestValues.builder().inputValue("THREE").build());
 
         Assertions.assertNotNull(result);
@@ -70,7 +70,7 @@ public class TestValidator {
     }
 
     @Test
-    public void testPatternMatchingInvalid() throws FieldValidationException {
+    void testPatternMatchingInvalid() throws FieldValidationException {
         ValidationResult result = fieldValidator.validate(TestPatternMatching.builder().guid("Not a guid").build());
 
         Assertions.assertNotNull(result);
@@ -79,7 +79,7 @@ public class TestValidator {
     }
 
     @Test
-    public void testPatternMatchingValid() throws FieldValidationException {
+    void testPatternMatchingValid() throws FieldValidationException {
         ValidationResult result = fieldValidator.validate(TestPatternMatching.builder().guid(UUID.randomUUID().toString()).build());
 
         Assertions.assertNotNull(result);

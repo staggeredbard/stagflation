@@ -24,3 +24,16 @@ hs_err_pid*
 
 .idea/*
 *.iml
+*.exec
+*.properties
+*.lst
+*.html
+*.gif
+*.css
+*.js
+*.csv
+target/site/jacoco/jacoco.xml
+target/sonar/.sonar_lock
+target/sonar/report-task.txt
+target/surefire-reports/TEST-test.TestValidator.xml
+target/surefire-reports/test.TestValidator.txt

@@ -36,4 +36,4 @@ target/site/jacoco/jacoco.xml
 target/sonar/.sonar_lock
 target/sonar/report-task.txt
 target/surefire-reports/TEST-test.TestValidator.xml
-target/surefire-reports/test.TestValidator.txt
+target/*

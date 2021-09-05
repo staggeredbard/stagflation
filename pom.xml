@@ -4,20 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <profiles>
-        <profile>
-            <id>sonar</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <sonar.host.url>http://localhost:14856/</sonar.host.url>
-                <sonar.organization>SSS</sonar.organization>
-                <sonar.login>6ebb00a3f3a9f5d123d19a6d25f0a9aba4a1f107</sonar.login>
-            </properties>
-        </profile>
-    </profiles>
-
     <build>
         <plugins>
             <plugin>

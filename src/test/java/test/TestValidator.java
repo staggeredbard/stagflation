@@ -24,67 +24,92 @@ class TestValidator {
     private FieldValidator fieldValidator;
 
     @Test
-    void testFieldValidationException(){
+    void testFieldValidationException() {
         Assertions.assertThrows(FieldValidationException.class, () -> {
-           fieldValidator.validate(new Object());
+            fieldValidator.validate(new Object());
         });
     }
 
     @Test
     void testNullableField() throws FieldValidationException {
-        ValidationResult result = fieldValidator.validate(new TestNullable());
+        try {
+            ValidationResult result = fieldValidator.validate(new TestNullable());
 
-        Assertions.assertNotNull(result);
-        Assertions.assertTrue(result.isValid());
+            Assertions.assertNotNull(result);
+            Assertions.assertTrue(result.isValid());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     void testValuesNull() throws FieldValidationException {
-        ValidationResult result = fieldValidator.validate(TestValues.builder().build());
+        try {
+            ValidationResult result = fieldValidator.validate(TestValues.builder().build());
 
-        Assertions.assertNotNull(result);
-        Assertions.assertFalse(result.isValid());
-        Assertions.assertEquals(1, result.getErrors().size());
-        Assertions.assertTrue(result.getErrors().containsKey("inputValue"));
-        Assertions.assertEquals("Null value in a non-nullable field", result.getErrors().get("inputValue"));
+            Assertions.assertNotNull(result);
+            Assertions.assertFalse(result.isValid());
+            Assertions.assertEquals(1, result.getErrors().size());
+            Assertions.assertTrue(result.getErrors().containsKey("inputValue"));
+            Assertions.assertEquals("Null value in a non-nullable field", result.getErrors().get("inputValue"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     void testValuesWrongCase() throws FieldValidationException {
-        ValidationResult result = fieldValidator.validate(TestValues.builder().inputValue("one").build());
+        try {
+            ValidationResult result = fieldValidator.validate(TestValues.builder().inputValue("one").build());
 
-        Assertions.assertNotNull(result);
-        Assertions.assertFalse(result.isValid());
-        Assertions.assertEquals(1, result.getErrors().size());
-        Assertions.assertTrue(result.getErrors().containsKey("inputValue"));
-        Assertions.assertEquals("Value provided does not match required values", result.getErrors().get("inputValue"));
+            Assertions.assertNotNull(result);
+            Assertions.assertFalse(result.isValid());
+            Assertions.assertEquals(1, result.getErrors().size());
+            Assertions.assertTrue(result.getErrors().containsKey("inputValue"));
+            Assertions.assertEquals("Value provided does not match required values", result.getErrors().get("inputValue"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     void testValuesMatching() throws FieldValidationException {
-        ValidationResult result = fieldValidator.validate(TestValues.builder().inputValue("THREE").build());
+        try {
+            ValidationResult result = fieldValidator.validate(TestValues.builder().inputValue("THREE").build());
 
-        Assertions.assertNotNull(result);
-        Assertions.assertTrue(result.isValid());
-        Assertions.assertEquals(0, result.getErrors().size());
+            Assertions.assertNotNull(result);
+            Assertions.assertTrue(result.isValid());
+            Assertions.assertEquals(0, result.getErrors().size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     void testPatternMatchingInvalid() throws FieldValidationException {
-        ValidationResult result = fieldValidator.validate(TestPatternMatching.builder().guid("Not a guid").build());
+        try {
+            ValidationResult result = fieldValidator.validate(TestPatternMatching.builder().guid("Not a guid").build());
 
-        Assertions.assertNotNull(result);
-        Assertions.assertFalse(result.isValid());
-        Assertions.assertEquals(1, result.getErrors().size());
+            Assertions.assertNotNull(result);
+            Assertions.assertFalse(result.isValid());
+            Assertions.assertEquals(1, result.getErrors().size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     void testPatternMatchingValid() throws FieldValidationException {
-        ValidationResult result = fieldValidator.validate(TestPatternMatching.builder().guid(UUID.randomUUID().toString()).build());
+        try {
+            ValidationResult result = fieldValidator.validate(TestPatternMatching.builder().guid(UUID.randomUUID().toString()).build());
 
-        Assertions.assertNotNull(result);
-        Assertions.assertFalse(result.isValid());
-        Assertions.assertEquals(1, result.getErrors().size());
+            Assertions.assertNotNull(result);
+            Assertions.assertFalse(result.isValid());
+            Assertions.assertEquals(1, result.getErrors().size());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

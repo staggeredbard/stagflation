@@ -69,9 +69,9 @@ public class FieldValidator implements Validator {
             }
         }
 
-        return ValidationResult.builder()
-                .valid(errors.isEmpty())
-                .errors(errors)
+        return new ValidationResult.Builder()
+                .setValid(errors.isEmpty())
+                .setErrors(errors)
                 .build();
     }
 

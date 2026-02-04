@@ -45,7 +45,7 @@ class TestValidator {
     @Test
     void testValuesNull() throws FieldValidationException {
         try {
-            ValidationResult result = fieldValidator.validate(TestValues.builder().build());
+            ValidationResult result = fieldValidator.validate(new TestValues.Builder().build());
 
             Assertions.assertNotNull(result);
             Assertions.assertFalse(result.isValid());
@@ -60,7 +60,7 @@ class TestValidator {
     @Test
     void testValuesWrongCase() throws FieldValidationException {
         try {
-            ValidationResult result = fieldValidator.validate(TestValues.builder().inputValue("one").build());
+            ValidationResult result = fieldValidator.validate(new TestValues.Builder().setInputValue("one").build());
 
             Assertions.assertNotNull(result);
             Assertions.assertFalse(result.isValid());
@@ -75,7 +75,7 @@ class TestValidator {
     @Test
     void testValuesMatching() throws FieldValidationException {
         try {
-            ValidationResult result = fieldValidator.validate(TestValues.builder().inputValue("THREE").build());
+            ValidationResult result = fieldValidator.validate(new TestValues.Builder().setInputValue("THREE").build());
 
             Assertions.assertNotNull(result);
             Assertions.assertTrue(result.isValid());
@@ -88,7 +88,7 @@ class TestValidator {
     @Test
     void testPatternMatchingInvalid() throws FieldValidationException {
         try {
-            ValidationResult result = fieldValidator.validate(TestPatternMatching.builder().guid("Not a guid").build());
+            ValidationResult result = fieldValidator.validate(new TestPatternMatching.Builder().setGuid("Not a setGuid").build());
 
             Assertions.assertNotNull(result);
             Assertions.assertFalse(result.isValid());
@@ -101,7 +101,7 @@ class TestValidator {
     @Test
     void testPatternMatchingValid() throws FieldValidationException {
         try {
-            ValidationResult result = fieldValidator.validate(TestPatternMatching.builder().guid(UUID.randomUUID().toString()).build());
+            ValidationResult result = fieldValidator.validate(new TestPatternMatching.Builder().setGuid(UUID.randomUUID().toString()).build());
 
             Assertions.assertNotNull(result);
             Assertions.assertFalse(result.isValid());

@@ -10,7 +10,7 @@ import com.straightsixstudios.utility.validation.annotations.ValidateString;
 public class TestValues {
 
     @ValidateString(nullable = false, values = {"ONE","TWO","THREE"})
-    private String inputValue;
+    public String inputValue;
 
     private TestValues(Builder builder){
         this.inputValue = builder.inputValue;

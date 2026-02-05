@@ -12,7 +12,7 @@ import java.util.Objects;
 public class TestPatternMatching {
 
     @ValidateString(pattern = "^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$", matches = true)
-    private String guid;
+    public String guid;
 
     private TestPatternMatching(Builder builder) {
         this.guid = builder.guid;

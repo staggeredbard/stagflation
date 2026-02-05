@@ -12,7 +12,7 @@ import java.util.Objects;
 public class TestNullable {
 
     @ValidateString(nullable = true)
-    private String field;
+    public String field;
 
     public String getField() {
         return field;

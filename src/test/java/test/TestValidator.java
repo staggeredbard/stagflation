@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import test.pojo.TestIllegalAccess;
 import test.pojo.TestNullable;
 import test.pojo.TestPatternMatching;
 import test.pojo.TestValues;
@@ -31,85 +32,75 @@ class TestValidator {
     }
 
     @Test
-    void testNullableField() throws FieldValidationException {
-        try {
-            ValidationResult result = fieldValidator.validate(new TestNullable());
+    void testNullFieldValidationException() {
+        Assertions.assertThrows(FieldValidationException.class, () -> {
+            fieldValidator.validate(null);
+        });
+    }
 
-            Assertions.assertNotNull(result);
-            Assertions.assertTrue(result.isValid());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Test
+    void testIllegalAccessException() {
+        Assertions.assertThrows(FieldValidationException.class, () -> {
+            fieldValidator.validate(new TestIllegalAccess());
+        });
+    }
+
+    @Test
+    void testNullableField() throws FieldValidationException {
+        ValidationResult result = fieldValidator.validate(new TestNullable());
+
+        Assertions.assertNotNull(result);
+        Assertions.assertTrue(result.isValid());
     }
 
     @Test
     void testValuesNull() throws FieldValidationException {
-        try {
-            ValidationResult result = fieldValidator.validate(TestValues.builder().build());
 
-            Assertions.assertNotNull(result);
-            Assertions.assertFalse(result.isValid());
-            Assertions.assertEquals(1, result.getErrors().size());
-            Assertions.assertTrue(result.getErrors().containsKey("inputValue"));
-            Assertions.assertEquals("Null value in a non-nullable field", result.getErrors().get("inputValue"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ValidationResult result = fieldValidator.validate(new TestValues.Builder().build());
+
+        Assertions.assertNotNull(result);
+        Assertions.assertFalse(result.isValid());
+        Assertions.assertEquals(1, result.getErrors().size());
+        Assertions.assertTrue(result.getErrors().containsKey("inputValue"));
+        Assertions.assertEquals("Null value in a non-nullable field", result.getErrors().get("inputValue"));
     }
 
     @Test
     void testValuesWrongCase() throws FieldValidationException {
-        try {
-            ValidationResult result = fieldValidator.validate(TestValues.builder().inputValue("one").build());
+        ValidationResult result = fieldValidator.validate(new TestValues.Builder().setInputValue("one").build());
 
-            Assertions.assertNotNull(result);
-            Assertions.assertFalse(result.isValid());
-            Assertions.assertEquals(1, result.getErrors().size());
-            Assertions.assertTrue(result.getErrors().containsKey("inputValue"));
-            Assertions.assertEquals("Value provided does not match required values", result.getErrors().get("inputValue"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Assertions.assertNotNull(result);
+        Assertions.assertFalse(result.isValid());
+        Assertions.assertEquals(1, result.getErrors().size());
+        Assertions.assertTrue(result.getErrors().containsKey("inputValue"));
+        Assertions.assertEquals("Value provided does not match required values", result.getErrors().get("inputValue"));
     }
 
     @Test
     void testValuesMatching() throws FieldValidationException {
-        try {
-            ValidationResult result = fieldValidator.validate(TestValues.builder().inputValue("THREE").build());
+        ValidationResult result = fieldValidator.validate(new TestValues.Builder().setInputValue("THREE").build());
 
-            Assertions.assertNotNull(result);
-            Assertions.assertTrue(result.isValid());
-            Assertions.assertEquals(0, result.getErrors().size());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Assertions.assertNotNull(result);
+        Assertions.assertTrue(result.isValid());
+        Assertions.assertEquals(0, result.getErrors().size());
     }
 
     @Test
     void testPatternMatchingInvalid() throws FieldValidationException {
-        try {
-            ValidationResult result = fieldValidator.validate(TestPatternMatching.builder().guid("Not a guid").build());
+        ValidationResult result = fieldValidator.validate(new TestPatternMatching.Builder().setGuid("Not a setGuid").build());
 
-            Assertions.assertNotNull(result);
-            Assertions.assertFalse(result.isValid());
-            Assertions.assertEquals(1, result.getErrors().size());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Assertions.assertNotNull(result);
+        Assertions.assertFalse(result.isValid());
+        Assertions.assertEquals(1, result.getErrors().size());
     }
 
     @Test
     void testPatternMatchingValid() throws FieldValidationException {
-        try {
-            ValidationResult result = fieldValidator.validate(TestPatternMatching.builder().guid(UUID.randomUUID().toString()).build());
+        ValidationResult result = fieldValidator.validate(new TestPatternMatching.Builder().setGuid(UUID.randomUUID().toString()).build());
 
-            Assertions.assertNotNull(result);
-            Assertions.assertFalse(result.isValid());
-            Assertions.assertEquals(1, result.getErrors().size());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Assertions.assertNotNull(result);
+        Assertions.assertFalse(result.isValid());
+        Assertions.assertEquals(1, result.getErrors().size());
     }
 
 }
